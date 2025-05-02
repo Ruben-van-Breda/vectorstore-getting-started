@@ -15,10 +15,10 @@ import argparse
 from typing import List, Optional
 from pathlib import Path
 
-from langchain.document_loaders import DirectoryLoader, TextLoader, PyPDFLoader
+from langchain_community.document_loaders import DirectoryLoader, TextLoader, PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
+from langchain_openai import OpenAIEmbeddings
+from langchain_community.vectorstores import Chroma
 
 def load_documents(file_path: str) -> List[str]:
     """
@@ -58,7 +58,10 @@ def create_vector_store(documents: List[str], output_path: Optional[str] = None)
     splits = text_splitter.split_documents(documents)
     
     # Create embeddings and vector store
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(
+        model="text-embedding-ada-002",
+        openai_api_key=os.getenv("OPENAI_API_KEY")
+    )
     vectorstore = Chroma.from_documents(
         documents=splits,
         embedding=embeddings,
@@ -67,6 +70,27 @@ def create_vector_store(documents: List[str], output_path: Optional[str] = None)
     
     if output_path:
         vectorstore.persist()
+
+def loadVectorstore(filePath):
+    return Chroma(
+        persist_directory=filePath,
+        embedding_function=OpenAIEmbeddings(
+            openai_api_key=os.getenv("OPENAI_API_KEY")
+        )
+    )
+
+def similaritySearch(vectorstore, query):
+    return vectorstore.similarity_search(query)
+
+def similaritySearchWithScore(vectorstore, query):
+    results = vectorstore.similarity_search_with_score(query)
+    for result in results:
+        print(result)
+    return results
+
+# Example usage
+
+
 
 def main():
     parser = argparse.ArgumentParser(description='Vectorize files or directories')
