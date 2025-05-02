@@ -406,3 +406,4 @@ output/*
 .env
 bricks/*
 secrets
+examples/Shakespeare/input_data/*

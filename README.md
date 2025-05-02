@@ -23,3 +23,4 @@ This project now uses the new `langchain_community` and `langchain_openai` packa
 - Use `from langchain_community.document_loaders import ...` for loaders
 - Use `from langchain_community.vectorstores import ...` for vector stores
 - Use `from langchain_openai import OpenAIEmbeddings` for OpenAI embeddings
+[text](Usage.md)

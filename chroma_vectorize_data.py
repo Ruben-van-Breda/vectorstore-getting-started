@@ -88,11 +88,17 @@ def similaritySearchWithScore(vectorstore, query):
         print(result)
     return results
 
-# Example usage
-
-
 
 def main():
+    ## Usage
+    # ```bash
+    # python3 chroma_vectorize_data.py <input_path> [-o <output_path>]
+    # ```
+
+    # ```bash
+    # python3 chroma_vectorize_data.py ./examples/Shakespeare -o ./vectorstore
+    # ```
+
     parser = argparse.ArgumentParser(description='Vectorize files or directories')
     parser.add_argument('input_path', help='Path to input file or directory')
     parser.add_argument('-o', '--output', help='Path to save vector store')
@@ -121,6 +127,7 @@ def main():
         return 1
     
     return 0
+
 
 if __name__ == '__main__':
     exit(main()) 
