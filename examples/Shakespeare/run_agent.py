@@ -9,7 +9,7 @@ from chroma_vectorize_data import loadVectorstore, similaritySearch
 
 def test_chroma_agent():
     vectorstore = loadVectorstore("./shakespeare_output")
-    query = "The fearful passage of their death-marked love And the continuance of their parents' rage,"
+    query = "How many plays have the actor KING of France"
     results = similaritySearch(vectorstore, query)
     print("\n\nResults from VectorStore: Similarity Search of the query: ", query, "\n------------------\n\n")
     for result in results:

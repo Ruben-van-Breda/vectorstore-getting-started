@@ -407,3 +407,6 @@ output/*
 bricks/*
 secrets
 examples/Shakespeare/input_data/*
+examples/SciFiStories/output_data/*
+examples/Shakespeare/shakespeare_output/*
+examples/SciFiStories/input_data/internet_archive_scifi_v3.txt

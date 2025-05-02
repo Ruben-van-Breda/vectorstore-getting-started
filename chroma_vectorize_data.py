@@ -50,13 +50,16 @@ def create_vector_store(documents: List[str], output_path: Optional[str] = None)
         documents: List of document texts to vectorize
         output_path: Optional path to save the vector store
     """
+    print("Splitting Document in chunks")
     # Split documents into chunks
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
         chunk_overlap=200
     )
     splits = text_splitter.split_documents(documents)
-    
+
+    print(" Create embeddings and vector store")
+
     # Create embeddings and vector store
     embeddings = OpenAIEmbeddings(
         model="text-embedding-ada-002",
