@@ -1,6 +1,1 @@
-# Run in interactive mode
-python chat.py -i
-
-> What are sip dialogs?
-{response}
->
+Improve the SimpleScape for AdvancedScrap only include recursive function

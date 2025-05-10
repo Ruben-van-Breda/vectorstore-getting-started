@@ -36,6 +36,8 @@ python chat.py -i
 - `-i, --interactive`: Run in interactive mode
 - `query`: The search query (not required when using interactive mode)
 
+
+
 ## Chat Bot
 python3 chat.py -i
 

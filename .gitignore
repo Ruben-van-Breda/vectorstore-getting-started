@@ -410,3 +410,14 @@ examples/Shakespeare/input_data/*
 examples/SciFiStories/output_data/*
 examples/Shakespeare/shakespeare_output/*
 examples/SciFiStories/input_data/internet_archive_scifi_v3.txt
+examples/AIJournalist/input/*
+examples/AIJournalist/vectorstore/*
+examples/AIJournalist/vectorestore/*/*
+WebScrapper/output/*
+*.sqlite3
+*.bin
+examples/Siperb/vectorestore/chroma.sqlite3
+examples/Siperb/vectorestore/*
+examples/Siperb/vectorestore/*/*
+
+examples/Siperb/vectorestore/ee145020-8253-4be8-bb4b-21d012086380/*
