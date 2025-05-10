@@ -77,13 +77,15 @@ def main():
         result = qa_chain({"query": args.query})
         
         # Print answer
-        print("\nAnswer:", result["result"])
+        # print("\nAnswer:", result["result"])
+        print(result["result"])
         
         # Print source documents if available
-        if result.get("source_documents"):
-            print("\nSources:")
-            for i, doc in enumerate(result["source_documents"], 1):
-                print(f"{i}. {doc.page_content[:200]}...")
+        # if result.get("source_documents"):
+        #     print("\nSources:")
+        #     for i, doc in enumerate(result["source_documents"], 1):
+        #         # print(f"{i}. {doc.page_content[:200]}...")
+        #         print(f"{i}. {doc.page_content}")
                 
     except Exception as e:
         print(f"Error: {str(e)}")

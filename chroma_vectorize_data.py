@@ -3,7 +3,7 @@
 VectorizeDataManager - A tool to create vector stores from various file types.
 
 This script allows you to vectorize individual files or entire directories of files,
-supporting both text and PDF formats. The vectorized data is stored in a ChromaDB
+supporting text, JSON, and PDF formats. The vectorized data is stored in a ChromaDB
 vector store for efficient similarity search and retrieval.
 
 Usage:
@@ -12,6 +12,7 @@ Usage:
 
 import os
 import argparse
+import json
 from typing import List, Optional
 from pathlib import Path
 
@@ -19,6 +20,7 @@ from langchain_community.document_loaders import DirectoryLoader, TextLoader, Py
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
+from langchain.docstore.document import Document
 
 def load_documents(file_path: str) -> List[str]:
     """
@@ -31,11 +33,39 @@ def load_documents(file_path: str) -> List[str]:
         List of document texts
     """
     if os.path.isdir(file_path):
-        loader = DirectoryLoader(file_path, glob="**/*.txt")
-        documents = loader.load()
+        # Check if directory contains json files
+        json_files = [f for f in os.listdir(file_path) if f.endswith('.json')]
+        if json_files:
+            documents = []
+            for json_file in json_files:
+                full_path = os.path.join(file_path, json_file)
+                try:
+                    with open(full_path, 'r') as f:
+                        data = json.load(f)
+                        # Convert JSON to string representation
+                        json_str = json.dumps(data, indent=2)
+                        doc = Document(page_content=json_str, metadata={"source": full_path})
+                        documents.append(doc)
+                except Exception as e:
+                    print(f"Error loading JSON file {full_path}: {str(e)}")
+            return documents
+        else:
+            # Default to text files if no JSON files
+            loader = DirectoryLoader(file_path, glob="**/*.txt")
+            documents = loader.load()
     else:
         if file_path.endswith('.pdf'):
             loader = PyPDFLoader(file_path)
+        elif file_path.endswith('.json'):
+            try:
+                with open(file_path, 'r') as f:
+                    data = json.load(f)
+                    json_str = json.dumps(data, indent=2)
+                    doc = Document(page_content=json_str, metadata={"source": file_path})
+                    return [doc]
+            except Exception as e:
+                print(f"Error loading JSON file {file_path}: {str(e)}")
+                return []
         else:
             loader = TextLoader(file_path)
         documents = loader.load()
