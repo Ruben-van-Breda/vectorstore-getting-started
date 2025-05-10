@@ -85,7 +85,7 @@ def main():
         #     print("\nSources:")
         #     for i, doc in enumerate(result["source_documents"], 1):
         #         # print(f"{i}. {doc.page_content[:200]}...")
-        #         print(f"{i}. {doc.page_content}")
+        #         # print(f"{i}. {doc.page_content}")
                 
     except Exception as e:
         print(f"Error: {str(e)}")
